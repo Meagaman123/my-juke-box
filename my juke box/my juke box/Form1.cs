@@ -12,35 +12,73 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        public int Int_Number_of_Genera;
+        ListBox[] Media_Library;
+        public string StrApplicationMediaPath = Directory.GetCurrentDirectory();
+
         public Form1()
         {
             InitializeComponent();
         }
 
-       
+        private bool Initailise()
+        {
+            Select_Genre_Hscroll.Minimum = 1;
+            Select_Genre_Hscroll.SmallChange = 1;
+            Select_Genre_Hscroll.Maximum = Int_Number_of_Genera;
+            Select_Genre_Hscroll.Value = Select_Genre_Hscroll.Minimum;
+            Select_Genre_Hscroll.Value - 1;
+            return true;
+        }
+
+
+
+        private bool Load_Media_Lists()
+        {
+            if (File.Exists(StrApplicationMediaPath + "\\Media\\Media.txt"))
+            {
+                try
+                {
+                    using (StreamReader streamReader = new StreamReader(StrApplicationMediaPath + "\\Media\\Media.txt"))
+                    {
+                        Int_Number_of_Genera = Convert.ToInt32(streamReader.ReadLine());
+                        Media_Library = new ListBox[Int_Number_of_Genera];
+                        for (int i = 0; i < Int_Number_of_Genera; i++)
+                        {
+                            Media_Library[i] = new ListBox();
+                            int num = Convert.ToInt32(streamReader.ReadLine());
+                            Media_Library[i].Items.Add(streamReader.ReadLine());
+                            for (int j = 0; j < num; j++)
+                            {
+                                string item = streamReader.ReadLine();
+                                Media_Library[i].Items.Add(item);
+                            }
+                        }
+                        streamReader.Close();
+                    }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             {
                 
-                int Int_Number_of_Genera;
-                //initializing the maximun and the minimun of the scroll bar so that when we read the file it will scroll to the maximun value
-
-                Select_Genre_Hscroll.Minimum = 1;
-                Select_Genre_Hscroll.SmallChange = 1;
-                Select_Genre_Hscroll.Maximum = 3;
-                
-
-                //this creates the array that will store the file when we read it in
-                ListBox[] Media_Library;
+               
 
                 
-                //clearing the genra so it shows up empty when the program launches and so that there isnt anything before we start
-                Genre_List.Items.Clear();
-                Genre_Title.Text = "";
+
+                
 
 
-                //this finds the file directory and then searches for the file 
+                
                 string applicationPath = Directory.GetCurrentDirectory() + "\\";
 
 
