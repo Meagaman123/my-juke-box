@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
 
             StreamReader streamReader = new StreamReader(StrApplicationMediaPath + "\\Media.txt");
                     
-                        //this reads in the number of genra form the first line and will then be used ina ll the loops so that we can read the correct amount.
+                        //this reads in the number of genra form the first line and will then be used in the loops so that we can read the correct amount.
                         Int_Number_of_Genera = Convert.ToInt32(streamReader.ReadLine());
                         //this adds the number of genra to the array
                         Media_Library = new ListBox[Int_Number_of_Genera];
@@ -124,15 +124,16 @@ namespace WindowsFormsApplication1
         private void Genre_List_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-                //this adds the items that are in genre list and that are selected to the play list.        
-                Play_List.Items.Add(Genre_List.Items[Genre_List.SelectedIndex]);
+              //this adds the items that are in genre list and that are selected to the play list.        
+              Play_List.Items.Add(Genre_List.Items[Genre_List.SelectedIndex]);
+            //this checks the bool currenlty playing song if it is false it will then take currently the top of genre list and put it in currenlty playing txt and removes it from playlist
             if (Currently_Playing_song == false)
             {
                 Currently_Playing.Text = Play_List.Items[0].ToString();
                 Play_List.Items.Remove(Play_List.Items[0]);
-                //myMediaPlayer.URL = StrApplicationMediaPath + "\\Tracks\\" + Currently_Playing.Text;
+                
                 Currently_Playing_song = true;
-                //myMediaPlayer.Ctlcontrols.play();
+                
             }
 
 
@@ -162,6 +163,12 @@ namespace WindowsFormsApplication1
         private void Currently_Playing_TextChanged(object sender, EventArgs e)
         {
            
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            about aboutForm = new about();
+            aboutForm.ShowDialog();
         }
     }
 }

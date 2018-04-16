@@ -9,3 +9,4 @@ C:\Users\giann\OneDrive\Documents\Visual Studio 2015\Projects\my juke box\my juk
 C:\Users\giann\OneDrive\Documents\Visual Studio 2015\Projects\my juke box\my juke box\obj\Debug\my juke box.pdb
 C:\Users\giann\OneDrive\Documents\Visual Studio 2015\Projects\my juke box\my juke box\bin\Debug\MusicPlayer.exe
 C:\Users\giann\OneDrive\Documents\Visual Studio 2015\Projects\my juke box\my juke box\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\giann\OneDrive\Documents\Visual Studio 2015\Projects\my juke box\my juke box\obj\Debug\WindowsFormsApplication1.about.resources
