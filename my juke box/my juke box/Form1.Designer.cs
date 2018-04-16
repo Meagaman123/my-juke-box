@@ -75,13 +75,16 @@
             this.Currently_Playing.ReadOnly = true;
             this.Currently_Playing.Size = new System.Drawing.Size(172, 20);
             this.Currently_Playing.TabIndex = 3;
+            this.Currently_Playing.TextChanged += new System.EventHandler(this.Currently_Playing_TextChanged);
             // 
             // Select_Genre_Hscroll
             // 
-            this.Select_Genre_Hscroll.Location = new System.Drawing.Point(87, 189);
+            this.Select_Genre_Hscroll.LargeChange = 1;
+            this.Select_Genre_Hscroll.Location = new System.Drawing.Point(87, 188);
             this.Select_Genre_Hscroll.Name = "Select_Genre_Hscroll";
             this.Select_Genre_Hscroll.Size = new System.Drawing.Size(200, 24);
             this.Select_Genre_Hscroll.TabIndex = 7;
+            this.Select_Genre_Hscroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Select_Genre_Hscroll_Scroll);
             // 
             // menuStrip1
             // 
@@ -115,6 +118,7 @@
             this.Play_List.Name = "Play_List";
             this.Play_List.Size = new System.Drawing.Size(200, 108);
             this.Play_List.TabIndex = 9;
+            this.Play_List.SelectedIndexChanged += new System.EventHandler(this.Play_List_SelectedIndexChanged);
             // 
             // Form1
             // 

@@ -8,90 +8,110 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+
+
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        //this is initializing the varible number of genra.
+        public int Int_Number_of_Genera;
+        //thsi is the array we will be using to store the file 
+        ListBox[] Media_Library;
+
+        public string StrApplicationMediaPath = Directory.GetCurrentDirectory();
+
         public Form1()
         {
             InitializeComponent();
         }
+        //this is a void that sets a minimun for the genra and sets the maximun scroll and how far it scrolls. and then passes through to populate genra which genra so that we can use hscroll value in that void.
+        private void Initailise()
+        {
+            //thsi is the minimun for the scorller 
+            Select_Genre_Hscroll.Minimum = 1;
+            //this is the change when u scroll on the scroller
+            Select_Genre_Hscroll.SmallChange = 1;
+            //this is the maximun you can scroll which will come from the file 
+            Select_Genre_Hscroll.Maximum = Int_Number_of_Genera;
+            //this is passing the value of hscroll to populate genra list 
+            Populate_Genera_List(Select_Genre_Hscroll.Value - 1);
+            //this is the initial value which is the minimun.
+            Select_Genre_Hscroll.Value = Select_Genre_Hscroll.Minimum;
+            
+           
 
-       
+        }
+
+        
+        private void Load_Media_Lists()
+        {
+
+            StreamReader streamReader = new StreamReader(StrApplicationMediaPath + "\\Media.txt");
+                    
+                        //this reads in the number of genra form the first line and will then be used ina ll the loops so that we can read the correct amount.
+                        Int_Number_of_Genera = Convert.ToInt32(streamReader.ReadLine());
+                        //this adds the number of genra to the array
+                        Media_Library = new ListBox[Int_Number_of_Genera];
+                        //this will loop through the for loop 
+                        for (int i = 0; i < Int_Number_of_Genera; i++)
+                        {
+
+                            Media_Library[i] = new ListBox();
+                            //this will convert the int in the file into the array so we can use it later
+                            int num = Convert.ToInt32(streamReader.ReadLine());
+                            //this adds the second number in the file to the array 
+                            Media_Library[i].Items.Add(streamReader.ReadLine());
+                            //this will for loop through the file and add it to the array
+                            for (int j = 0; j < num; j++)
+                            {
+                                //this checks the item/word in the file and adds it to the array 
+                                string word = streamReader.ReadLine();
+                                Media_Library[i].Items.Add(word);
+                            }
+                        }
+                        //this stops reading form the file 
+                        streamReader.Close();
+                    }
+                    
+                
+                
+                
+                    
+                
+         
+
+        //populate genra list will add the text to the list 
+        private void Populate_Genera_List(int Which_Genera)
+        {
+            //this clears the items 
+            Genre_List.Items.Clear();
+            //this makes the text in the genre title the same as the hscroll bar and will read it from the array where it is stored
+            Genre_Title.Text = Media_Library[Which_Genera].Items[0].ToString();
+            //this for loop it will loop through the array and then use the scroll bar value to add to the list
+            for (int i = 1; i <= Media_Library[Which_Genera].Items.Count - 1; i++)
+            {
+                //this adds to the list from the array.
+                Genre_List.Items.Add(Media_Library[Which_Genera].Items[i].ToString());
+            }
+        }
+
+
+
+         
+        
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            {
-                
-                int Int_Number_of_Genera;
-                //initializing the maximun and the minimun of the scroll bar so that when we read the file it will scroll to the maximun value
-
-                Select_Genre_Hscroll.Minimum = 1;
-                Select_Genre_Hscroll.SmallChange = 1;
-                Select_Genre_Hscroll.Maximum = 3;
-                
-
-                //this creates the array that will store the file when we read it in
-                ListBox[] Media_Library;
-
-                
-                //clearing the genra so it shows up empty when the program launches and so that there isnt anything before we start
-                Genre_List.Items.Clear();
-                Genre_Title.Text = "";
-
-
-                //this finds the file directory and then searches for the file 
-                string applicationPath = Directory.GetCurrentDirectory() + "\\";
-
-
-                //this reads the file file stream is a short way of writing it instead of the whole thing.
-                StreamReader Filestream = new StreamReader(applicationPath + ("Media.txt"));
-
-
-                //this gets the first line in the file and converts it into an int puts it as number of genera 
-                Int_Number_of_Genera = Convert.ToInt32(Filestream.ReadLine());
-
-
-                //this takes the int number of genra string and puts it into the array.
-                Media_Library = new ListBox[Int_Number_of_Genera];
-
-
-                //this then goes through the foor loop exactly the amount of number of genra there is in the file it will then read in the next 2 lines and store them in the array 
-                for (int i = 0; i < Int_Number_of_Genera; i++)
-                {
-                   
-                    Media_Library[i] = new ListBox();
-                    int num = Convert.ToInt32(Filestream.ReadLine());
-                    Media_Library[i].Items.Add(Filestream.ReadLine());
-                    //this adds the the text in the file to the text file and displays it 
-                    for (int j = 0; j < num; j++)
-                    {
-                        string item = Filestream.ReadLine();
-                        Media_Library[i].Items.Add(item);
-                    }
-                }
-                Filestream.Close();
-
-                
-                
-
-
-                Genre_Title.Text = Media_Library[Select_Genre_Hscroll.Value-1].Items[0].ToString();
+            Load_Media_Lists();
+            Initailise();
 
 
 
 
-                int Which_Genera = Select_Genre_Hscroll.Value - 1 ;
-
-                Genre_List.Items.Clear();
-                Genre_Title.Text = Media_Library[Which_Genera].Items[0].ToString();
-                for (int i = 1; i <= Media_Library[Which_Genera].Items.Count - 1; i++)
-                {
-                    Genre_List.Items.Add(Media_Library[Which_Genera].Items[i].ToString());
-                }
 
 
-            }
         }
 
 
@@ -99,7 +119,12 @@ namespace WindowsFormsApplication1
         private void Genre_List_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        }
+                //this adds the items that are in genre list and that are selected to the play list.        
+                Play_List.Items.Add(Genre_List.Items[Genre_List.SelectedIndex]);
+
+            
+        
+    }
 
         private void cp_TextChanged(object sender, EventArgs e)
         {
@@ -107,6 +132,22 @@ namespace WindowsFormsApplication1
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void Select_Genre_Hscroll_Scroll(object sender, ScrollEventArgs e)
+        {
+            Genre_Title.Text = Media_Library[Select_Genre_Hscroll.Value - 1].Items[0].ToString();
+            Populate_Genera_List(Select_Genre_Hscroll.Value - 1);
+        }
+
+        private void Play_List_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Currently_Playing_TextChanged(object sender, EventArgs e)
         {
 
         }
