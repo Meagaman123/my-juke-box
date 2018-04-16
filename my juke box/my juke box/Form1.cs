@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+//using WMPLib;
+//using AxWMPLib;
 
 namespace WindowsFormsApplication1
 {
@@ -19,7 +20,11 @@ namespace WindowsFormsApplication1
         //thsi is the array we will be using to store the file 
         ListBox[] Media_Library;
 
+        public bool Currently_Playing_song = false;
+
         public string StrApplicationMediaPath = Directory.GetCurrentDirectory();
+
+        //private AxWindowsMediaPlayer myMediaPlayer;
 
         public Form1()
         {
@@ -121,10 +126,17 @@ namespace WindowsFormsApplication1
 
                 //this adds the items that are in genre list and that are selected to the play list.        
                 Play_List.Items.Add(Genre_List.Items[Genre_List.SelectedIndex]);
+            if (Currently_Playing_song == false)
+            {
+                Currently_Playing.Text = Play_List.Items[0].ToString();
+                Play_List.Items.Remove(Play_List.Items[0]);
+                //myMediaPlayer.URL = StrApplicationMediaPath + "\\Tracks\\" + Currently_Playing.Text;
+                Currently_Playing_song = true;
+                //myMediaPlayer.Ctlcontrols.play();
+            }
 
-            
-        
-    }
+
+        }
 
         private void cp_TextChanged(object sender, EventArgs e)
         {
@@ -149,7 +161,7 @@ namespace WindowsFormsApplication1
 
         private void Currently_Playing_TextChanged(object sender, EventArgs e)
         {
-
+           
         }
     }
 }
