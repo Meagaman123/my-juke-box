@@ -38,6 +38,7 @@
             this.setUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Play_List = new System.Windows.Forms.ListBox();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,7 +89,8 @@
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setUpToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 569);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(374, 24);
@@ -115,6 +117,12 @@
             this.Play_List.Name = "Play_List";
             this.Play_List.Size = new System.Drawing.Size(200, 108);
             this.Play_List.TabIndex = 9;
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.refreshToolStripMenuItem.Text = "refresh";
             // 
             // Form1
             // 
@@ -149,6 +157,7 @@
         private System.Windows.Forms.ToolStripMenuItem setUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ListBox Play_List;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }
 
